@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Indra Ranuh  Senior Software Engineer">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09090b"/>
+      <stop offset="100%" stop-color="#134e4a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text x="80" y="280" fill="#2dd4bf" font-family="ui-monospace, monospace" font-size="28" letter-spacing="8">SENIOR SOFTWARE ENGINEER</text>
+  <text x="80" y="380" fill="#fafafa" font-family="system-ui, sans-serif" font-size="72" font-weight="700">Indra Ranuh</text>
+  <text x="80" y="450" fill="#a1a1aa" font-family="system-ui, sans-serif" font-size="32">Enterprise Architecture · SNAP · Laravel</text>
+</svg>

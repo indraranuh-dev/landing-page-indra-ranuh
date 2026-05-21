@@ -1,0 +1,222 @@
+---
+import { copy } from '../../content/copy';
+
+import Container from '../ui/Container.astro';
+
+const { nodes } = copy.architecture;
+const nodeById = Object.fromEntries(nodes.map((n) => [n.id, n]));
+
+const client = nodeById.client;
+const api = nodeById.api;
+const domain = nodeById.domain;
+const data = nodeById.data;
+const ops = nodeById.ops;
+---
+
+<section
+  id="architecture"
+  class="relative overflow-hidden border-y border-neutral-800/50 bg-black/50 px-4 py-20 sm:px-6 sm:py-32"
+  x-data="{ activeNode: 'api' }"
+>
+  <div
+    class="glow-accent glow-cyan top-0 right-0 h-[min(420px,70vw)] w-[min(420px,70vw)]"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="glow-accent glow-violet bottom-0 left-0 h-[min(280px,45vw)] w-[min(280px,45vw)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <Container class="relative z-10">
+    <p class="section-label">{copy.architecture.sectionLabel}</p>
+    <div class="mb-10 max-w-2xl lg:mb-14">
+      <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">{copy.architecture.title}</h2>
+      <p class="mt-4 text-sm leading-relaxed text-zinc-500 sm:text-base">{copy.architecture.intro}</p>
+    </div>
+
+    <!-- Mobile: quick layer picker -->
+    <div
+      class="mb-6 flex gap-2 overflow-x-auto pb-2 lg:hidden"
+      role="tablist"
+      aria-label="Pilih lapisan arsitektur"
+    >
+      {
+        nodes.map((node) => (
+          <button
+            type="button"
+            role="tab"
+            class="mono shrink-0 border px-3 py-2 text-[10px] tracking-widest uppercase transition-colors"
+            :class={`activeNode === '${node.id}' ? 'border-teal-500/60 bg-teal-500/10 text-teal-400' : 'border-zinc-800 text-zinc-500'`}
+            @click={`activeNode = '${node.id}'`}
+            :aria-selected={`activeNode === '${node.id}'`}
+          >
+            {node.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
+      <!-- Topology diagram -->
+      <div class="lg:col-span-7">
+        <div class="relative overflow-hidden border border-neutral-800 bg-black/90 p-4 sm:p-8">
+          <p class="micro-label mb-6 hidden sm:block">{copy.architecture.diagramCaption}</p>
+
+          <div class="mx-auto flex w-full max-w-md flex-col items-stretch" aria-hidden="false">
+            <!-- Client -->
+            <button
+              type="button"
+              class="arch-layer w-full border p-4 text-left transition-colors sm:p-5"
+              :class={`activeNode === 'client' ? 'border-teal-500 bg-teal-500/10' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-600'`}
+              @click="activeNode = 'client'"
+              @mouseenter="activeNode = 'client'"
+              :aria-pressed={`activeNode === 'client'`}
+            >
+              <span class="mono text-[10px] tracking-widest text-teal-400 uppercase">{client.label}</span>
+              <span class="mt-1 block font-bold text-zinc-100">Web / Mobile</span>
+              <span class="mt-1 block text-xs text-zinc-500 sm:text-sm">{client.caption}</span>
+            </button>
+
+            <div class="flex justify-center py-1" aria-hidden="true">
+              <div class="h-8 w-px bg-gradient-to-b from-teal-500/50 to-zinc-700"></div>
+            </div>
+
+            <!-- API -->
+            <button
+              type="button"
+              class="arch-layer w-full border p-4 text-left transition-colors sm:p-5"
+              :class={`activeNode === 'api' ? 'border-teal-500 bg-teal-500/10 shadow-[0_0_24px_rgba(45,212,191,0.12)]' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-600'`}
+              @click="activeNode = 'api'"
+              @mouseenter="activeNode = 'api'"
+              :aria-pressed={`activeNode === 'api'`}
+            >
+              <span class="mono text-[10px] tracking-widest text-teal-400 uppercase">{api.label}</span>
+              <span class="mt-1 block font-bold text-teal-300">API Gateway</span>
+              <span class="mt-1 block text-xs text-zinc-500 sm:text-sm">{api.caption}</span>
+            </button>
+
+            <div class="relative flex justify-center py-1" aria-hidden="true">
+              <div class="h-8 w-px bg-zinc-700"></div>
+              <div class="absolute top-4 left-1/2 h-px w-[calc(50%-1rem)] -translate-x-full bg-zinc-700"></div>
+              <div class="absolute top-4 left-1/2 h-px w-[calc(50%-1rem)] bg-zinc-700"></div>
+            </div>
+
+            <!-- Domain + Data -->
+            <div class="grid grid-cols-2 gap-px bg-zinc-800">
+              <button
+                type="button"
+                class="arch-layer border-0 bg-zinc-950 p-3 text-left transition-colors sm:p-4"
+                :class={`activeNode === 'domain' ? 'bg-teal-500/10 ring-1 ring-teal-500/60 ring-inset' : 'hover:bg-zinc-900'`}
+                @click="activeNode = 'domain'"
+                @mouseenter="activeNode = 'domain'"
+                :aria-pressed={`activeNode === 'domain'`}
+              >
+                <span class="mono text-[9px] tracking-widest text-violet-300 uppercase sm:text-[10px]">
+                  {domain.label}
+                </span>
+                <span class="mt-1 block text-sm font-bold text-zinc-100">Domain / DDD</span>
+                <span class="mt-1 block text-[11px] text-zinc-500">{domain.caption}</span>
+              </button>
+              <button
+                type="button"
+                class="arch-layer border-0 bg-zinc-950 p-3 text-left transition-colors sm:p-4"
+                :class={`activeNode === 'data' ? 'bg-teal-500/10 ring-1 ring-teal-500/60 ring-inset' : 'hover:bg-zinc-900'`}
+                @click="activeNode = 'data'"
+                @mouseenter="activeNode = 'data'"
+                :aria-pressed={`activeNode === 'data'`}
+              >
+                <span class="mono text-[9px] tracking-widest text-violet-300 uppercase sm:text-[10px]">
+                  {data.label}
+                </span>
+                <span class="mt-1 block text-sm font-bold text-zinc-100">DB / Cache</span>
+                <span class="mt-1 block text-[11px] text-zinc-500">{data.caption}</span>
+              </button>
+            </div>
+
+            <div class="flex justify-center py-1" aria-hidden="true">
+              <div class="h-8 w-px bg-gradient-to-b from-zinc-700 to-zinc-600"></div>
+            </div>
+
+            <!-- Ops -->
+            <button
+              type="button"
+              class="arch-layer w-full border p-4 text-left transition-colors sm:p-5"
+              :class={`activeNode === 'ops' ? 'border-teal-500 bg-teal-500/10' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-600'`}
+              @click="activeNode = 'ops'"
+              @mouseenter="activeNode = 'ops'"
+              :aria-pressed={`activeNode === 'ops'`}
+            >
+              <span class="mono text-[10px] tracking-widest text-zinc-500 uppercase">{ops.label}</span>
+              <span class="mt-1 block font-bold text-zinc-200">CI / Observability</span>
+              <span class="mt-1 block text-xs text-zinc-500 sm:text-sm">{ops.caption}</span>
+            </button>
+          </div>
+
+          <p class="mono mt-6 text-center text-[9px] tracking-widest text-zinc-600 uppercase sm:hidden">
+            {copy.architecture.diagramCaption}
+          </p>
+        </div>
+      </div>
+
+      <!-- Layer detail (desktop list + active panel) -->
+      <div class="lg:col-span-5">
+        <div class="border border-neutral-800 bg-black/90 p-6 backdrop-blur-sm sm:p-8 lg:sticky lg:top-24">
+          <p class="micro-label mb-6">// ACTIVE_LAYER · DETAIL</p>
+
+          {
+            nodes.map((node) => (
+              <article
+                x-show={`activeNode === '${node.id}'`}
+                x-cloak
+                class="space-y-3"
+              >
+                <h3 class="text-xl font-bold tracking-tight text-zinc-100 sm:text-2xl">{node.label}</h3>
+                <p class="text-sm leading-relaxed text-zinc-400 sm:text-base">{node.caption}</p>
+                <div class="mt-6 border-t border-zinc-800 pt-4">
+                  <span class="mono text-[10px] tracking-widest text-teal-400 uppercase">Topology</span>
+                  <p class="mt-2 text-xs leading-relaxed text-zinc-500">
+                    {node.id === 'client' &&
+                      'Entry point untuk web, PWA, dan mobile — semua request masuk ke API layer.'}
+                    {node.id === 'api' &&
+                      'Gateway terpusat: auth, routing, rate limit, dan kontrak REST ke downstream services.'}
+                    {node.id === 'domain' &&
+                      'Business logic & use cases — terpisah dari transport dan persistence (DDD-ready).'}
+                    {node.id === 'data' &&
+                      'Persistence layer: relational DB, cache, dan queue untuk workload async.'}
+                    {node.id === 'ops' &&
+                      'Deploy pipeline, monitoring, dan observability untuk reliability production.'}
+                  </p>
+                </div>
+              </article>
+            ))
+          }
+
+          <ul class="mt-8 hidden gap-2 lg:flex lg:flex-col">
+            {
+              nodes.map((node) => (
+                <li>
+                  <button
+                    type="button"
+                    class="flex w-full items-center justify-between gap-3 border px-4 py-3 text-left transition-colors"
+                    :class={`activeNode === '${node.id}' ? 'border-teal-500/50 bg-teal-500/5' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-600'`}
+                    @click={`activeNode = '${node.id}'`}
+                  >
+                    <span class="mono text-[10px] tracking-widest uppercase">{node.label}</span>
+                    <span
+                      class="h-1.5 w-1.5 shrink-0 bg-teal-400"
+                      x-show={`activeNode === '${node.id}'`}
+                      x-cloak
+                      aria-hidden="true"
+                    />
+                  </button>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

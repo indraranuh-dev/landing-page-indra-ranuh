@@ -1,0 +1,91 @@
+---
+import { Menu, X } from '@lucide/astro';
+import { copy } from '../../content/copy';
+import Container from '../ui/Container.astro';
+
+const navLinks = [
+  { href: '#expertise', label: copy.nav.expertise },
+  { href: '#projects', label: copy.nav.works },
+  { href: '#philosophy', label: copy.nav.philosophy },
+  { href: '#contact', label: copy.nav.contact },
+];
+---
+
+<div class="site-nav-root" x-data>
+  <!-- Mobile menu: di belakang bar, tidak menutupi tombol menu -->
+  <div
+    class="site-nav-overlay fixed inset-0 z-[90] md:hidden"
+    x-show="$store.ui.menuOpen"
+    x-cloak
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    @click.self="$store.ui.closeMenu()"
+  >
+    <nav
+      class="flex h-full flex-col items-center justify-center gap-8 px-6"
+      aria-label="Menu mobile"
+      @click.stop
+    >
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm font-medium uppercase tracking-[0.3em] text-zinc-200 transition-colors hover:text-teal-400"
+            @click="$store.ui.closeMenu()"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <header
+    class="site-nav-bar fixed top-0 right-0 left-0 z-[100] w-full"
+    x-bind:class="$store.ui.navClass"
+  >
+    <Container class="flex h-14 items-center justify-between gap-3 sm:h-16">
+      <a
+        href="/"
+        class="mono relative z-10 shrink-0 text-base font-bold tracking-tighter sm:text-lg"
+        @mouseenter="$store.ui.logoMorph = true"
+        @mouseleave="$store.ui.logoMorph = false"
+      >
+        <span x-show="!$store.ui.logoMorph">
+          INDRARANUH<span class="text-teal-400">.</span>
+        </span>
+        <span x-show="$store.ui.logoMorph" x-cloak class="text-teal-400">MORPHLING.</span>
+      </a>
+
+      <div class="hidden items-center gap-8 md:flex">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="text-[10px] font-medium uppercase tracking-[0.2em] transition-colors hover:text-teal-400"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+
+      <button
+        type="button"
+        class="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center border border-zinc-800 bg-black/80 md:hidden"
+        @click="$store.ui.toggleMenu()"
+        :aria-expanded="$store.ui.menuOpen"
+        aria-label={copy.nav.toggleMenu}
+      >
+        <Menu class="h-5 w-5" x-show="!$store.ui.menuOpen" />
+        <X class="h-5 w-5" x-show="$store.ui.menuOpen" x-cloak />
+      </button>
+
+      <p class="vibe-badge mono hidden uppercase lg:block">{copy.nav.vibeBadge}</p>
+    </Container>
+  </header>
+</div>

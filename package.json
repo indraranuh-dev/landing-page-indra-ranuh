@@ -2,6 +2,7 @@
   "name": "indra-ranuh-landing-page",
   "type": "module",
   "version": "0.0.1",
+  "license": "UNLICENSED",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -12,6 +13,22 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.3.3"
+    "@astrojs/alpinejs": "^0.5.0",
+    "@astrojs/sitemap": "^3.7.2",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@lucide/astro": "^1.16.0",
+    "@tailwindcss/postcss": "^4.3.0",
+    "alpinejs": "^3.15.12",
+    "astro": "^6.3.3",
+    "autoprefixer": "^10.5.0",
+    "gsap": "^3.15.0",
+    "highlight.js": "^11.11.1",
+    "postcss": "^8.5.14",
+    "swiper": "^12.1.4",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/alpinejs": "^3.13.11"
   }
 }

@@ -1,0 +1,69 @@
+---
+import { copy } from '../../content/copy';
+import Container from '../ui/Container.astro';
+
+const year = new Date().getFullYear();
+
+const socialLinks = [
+  { href: 'https://linkedin.com/in/indra-ranuh/', label: 'Linkedin' },
+  { href: 'https://github.com/indraranuh-dev', label: 'Github' },
+  { href: 'https://threads.com/@idrmrph', label: 'Threads' },
+  { href: 'https://instagram.com/@idrmrph', label: 'Instagram' },
+];
+---
+
+<footer id="contact" class="border-t border-neutral-800 bg-black px-4 pt-24 pb-10 sm:px-6 sm:pt-40">
+  <Container>
+    <p class="section-label text-center">{copy.footer.sectionLabel}</p>
+    <div class="mb-24 text-center sm:mb-40">
+      <h2 class="text-gradient mb-10 text-4xl font-extrabold tracking-tight sm:mb-16 sm:text-5xl md:text-8xl">
+        {copy.footer.ctaLine1}
+        <br />
+        {copy.footer.ctaLine2}
+      </h2>
+
+      <div class="flex flex-col items-center gap-6">
+        <button
+          type="button"
+          class="group max-w-full break-all border-b-2 border-teal-400 pb-2 text-lg font-bold italic transition-all hover:text-teal-400 sm:text-2xl md:text-4xl"
+          @click="$store.clipboard.copy($store.clipboard.email)"
+          x-text={`$store.clipboard.copied ? '${copy.footer.emailCopied}' : $store.clipboard.email`}
+        >
+        </button>
+        <a
+          href="mailto:indraranuh1@gmail.com"
+          class="mono text-[10px] tracking-widest text-zinc-600 uppercase hover:text-zinc-400"
+        >
+          {copy.footer.openMailClient}
+        </a>
+      </div>
+
+      <nav class="mt-12 flex flex-wrap justify-center gap-6 sm:gap-8" aria-label={copy.footer.socialNavLabel}>
+        {
+          socialLinks.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase transition-colors hover:text-zinc-100"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div
+      class="flex flex-col items-center justify-between gap-8 border-t border-neutral-800/50 pt-10 md:flex-row"
+    >
+      <div class="mono flex flex-col gap-1 px-2 text-center text-[9px] text-zinc-600 sm:px-0 sm:text-left sm:text-[10px]">
+        <span class="leading-relaxed">{copy.footer.alumnus}</span>
+        <span class="tracking-widest uppercase opacity-70">{copy.footer.roleLocation}</span>
+      </div>
+      <p class="mono text-[10px] text-zinc-700 uppercase">
+        © {year} Indra Ranuh — {copy.footer.copyright}
+      </p>
+    </div>
+  </Container>
+</footer>

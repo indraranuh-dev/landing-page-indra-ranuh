@@ -1,0 +1,65 @@
+---
+import { copy } from '../../content/copy';
+import { projects } from '../../data/projects';
+import {
+  buildJsonLdGraph,
+  getCanonicalUrl,
+  getOgImageUrl,
+  seoConstants,
+} from '../../lib/seo';
+
+const canonicalUrl = getCanonicalUrl('/');
+const ogImage = getOgImageUrl();
+const jsonLd = buildJsonLdGraph(projects);
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content={copy.meta.description} />
+<meta name="keywords" content={copy.meta.keywords} />
+<meta name="author" content={seoConstants.author} />
+<meta name="creator" content={seoConstants.author} />
+<meta name="publisher" content={seoConstants.author} />
+<meta name="robots" content={seoConstants.robots} />
+<meta name="googlebot" content={seoConstants.robots} />
+<meta name="theme-color" content={seoConstants.themeColor} />
+<meta name="color-scheme" content="dark" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<meta name="geo.region" content="ID-JT" />
+<meta name="geo.placename" content="Surakarta" />
+<meta name="ICBM" content="-7.5755, 110.8243" />
+
+<link rel="author" href="/humans.txt" />
+<link rel="canonical" href={canonicalUrl} />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<meta property="og:type" content="profile" />
+<meta property="og:site_name" content={seoConstants.siteName} />
+<meta property="og:title" content={copy.meta.title} />
+<meta property="og:description" content={copy.meta.description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:locale" content={seoConstants.ogLocale} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={`${seoConstants.author} — ${copy.seo.personJobTitle}`} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="profile:first_name" content="Indra" />
+<meta property="profile:last_name" content="Ranuh" />
+<meta property="profile:username" content="indraranuh-dev" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={seoConstants.twitterHandle} />
+<meta name="twitter:creator" content={seoConstants.twitterHandle} />
+<meta name="twitter:title" content={copy.meta.title} />
+<meta name="twitter:description" content={copy.meta.description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={`${seoConstants.author} — ${copy.seo.personJobTitle}`} />
+
+<title>{copy.meta.title}</title>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

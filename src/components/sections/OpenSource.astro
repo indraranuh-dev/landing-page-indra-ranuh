@@ -1,0 +1,73 @@
+---
+import { copy } from '../../content/copy';
+import Container from '../ui/Container.astro';
+---
+
+<section class="border-t border-neutral-800 bg-black/50 px-4 py-20 sm:px-6 sm:py-32">
+  <Container>
+    <p class="section-label">{copy.openSource.sectionLabel}</p>
+    <div class="grid gap-px bg-neutral-800 lg:grid-cols-12">
+      <div class="blueprint-cell p-6 lg:col-span-5 lg:p-10">
+        <h2 class="mono mb-6 text-sm tracking-[0.4em] text-teal-400 uppercase sm:mb-8">
+          {copy.openSource.sectionTitle}
+        </h2>
+        <h3 class="mb-6 text-3xl font-extrabold tracking-tight sm:mb-8 sm:text-4xl">{copy.openSource.title}</h3>
+        <p class="mb-8 leading-relaxed text-zinc-400 sm:mb-10">
+          {copy.openSource.description}
+          <strong>{copy.openSource.morphlingStrong}</strong>{copy.openSource.descriptionSuffix}
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
+          <a
+            href="https://github.com/morphling-dev/3d"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-spring bg-zinc-100 px-6 py-3.5 text-center text-sm font-bold tracking-widest text-zinc-950 uppercase transition-all hover:bg-teal-400 sm:px-8 sm:py-4"
+          >
+            {copy.openSource.githubRepo}
+          </a>
+          <a
+            href="https://3d-docs.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-spring border border-zinc-800 px-6 py-3.5 text-center text-sm font-bold tracking-widest uppercase transition-all hover:border-zinc-100 sm:px-8 sm:py-4"
+          >
+            {copy.openSource.learnMore}
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-px bg-neutral-800 sm:grid-cols-2 lg:col-span-7">
+        <article
+          class="card-spring blueprint-cell p-6 transition-shadow hover:shadow-[0_0_30px_rgba(45,212,191,0.12)] sm:p-8"
+        >
+          <p class="micro-label mb-3">repo · indraranuh-dev</p>
+          <div class="mb-2 text-lg font-bold">indraranuh-dev</div>
+          <p class="mb-6 text-xs leading-relaxed text-zinc-500">{copy.openSource.cards.personal.description}</p>
+          <a
+            href="https://github.com/indraranuh-dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mono text-[10px] tracking-widest text-teal-400 uppercase"
+          >
+            {copy.openSource.cards.personal.connect}
+          </a>
+        </article>
+        <article
+          class="card-spring blueprint-cell p-6 transition-shadow hover:shadow-[0_0_30px_rgba(45,212,191,0.12)] sm:p-8"
+        >
+          <p class="micro-label mb-3">repo · morphling-dev</p>
+          <div class="mb-2 text-lg font-bold">morphling-dev</div>
+          <p class="mb-6 text-xs leading-relaxed text-zinc-500">{copy.openSource.cards.morphling.description}</p>
+          <a
+            href="https://github.com/morphling-dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mono text-[10px] tracking-widest text-teal-400 uppercase"
+          >
+            {copy.openSource.cards.morphling.connect}
+          </a>
+        </article>
+      </div>
+    </div>
+  </Container>
+</section>

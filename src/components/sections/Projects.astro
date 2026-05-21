@@ -1,0 +1,122 @@
+---
+import { ChevronLeft, ChevronRight } from "@lucide/astro";
+import { copy } from "../../content/copy";
+import { projects } from "../../data/projects";
+import Container from "../ui/Container.astro";
+import ProjectModal from "../ui/ProjectModal.astro";
+---
+
+<section id="projects" class="overflow-hidden px-4 py-20 sm:px-6 sm:py-32">
+  <Container>
+    <p class="section-label">{copy.projects.sectionLabel}</p>
+    <div
+      class="mb-10 flex w-full flex-col gap-6 sm:mb-16 md:flex-row md:items-end md:justify-between"
+    >
+      <div class="min-w-0">
+        <h2
+          class="mb-3 text-3xl font-extrabold tracking-tight sm:mb-4 sm:text-4xl"
+        >
+          {copy.projects.title}
+        </h2>
+        <p class="text-sm text-zinc-500 italic sm:text-base">
+          {copy.projects.subtitle}
+        </p>
+      </div>
+      <div class="flex shrink-0 gap-3 self-start sm:gap-4 md:self-auto">
+        <button
+          type="button"
+          class="swiper-prev flex h-11 w-11 items-center justify-center border border-zinc-800 transition-all hover:bg-zinc-800 sm:h-12 sm:w-12"
+          aria-label={copy.projects.prevSlide}
+        >
+          <ChevronLeft class="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          class="swiper-next flex h-11 w-11 items-center justify-center border border-zinc-800 transition-all hover:bg-zinc-800 sm:h-12 sm:w-12"
+          aria-label={copy.projects.nextSlide}
+        >
+          <ChevronRight class="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="swiper project-swiper -mx-4 px-4 sm:mx-0 sm:px-0"
+      x-data
+      x-init="$store.swiper.init('projects', $el, {
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-next', prevEl: '.swiper-prev' },
+      })"
+    >
+      <div class="swiper-wrapper">
+        {
+          projects.map((project, i) => (
+            <div class="swiper-slide h-auto">
+              <article
+                role="button"
+                tabindex="0"
+                class="project-card card-spring flex h-full cursor-pointer flex-col bg-black p-6 sm:p-8 md:p-10"
+                @click={`$store.projectModal.open('${project.id}')`}
+                @keydown.enter={`$store.projectModal.open('${project.id}')`}
+              >
+                <p class="micro-label mb-4">
+                  {`// PROJECT · ${String(i + 1).padStart(2, "0")} / ${copy.projects.indexLabel}`}
+                </p>
+                <div class="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-start sm:justify-between">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span
+                      class:list={[
+                        "mono border px-3 py-1 text-[9px] tracking-widest uppercase sm:px-4 sm:text-[10px]",
+                        project.badgeClass,
+                      ]}
+                    >
+                      {project.badge}
+                    </span>
+                  </div>
+                  <span class="text-xs font-bold tracking-widest text-teal-400/80 uppercase">
+                    {copy.projects.viewDetail}
+                  </span>
+                </div>
+                <h3 class="mb-3 text-2xl font-bold text-zinc-100 sm:mb-4 sm:text-3xl">
+                  {project.title}
+                </h3>
+                <p class="mb-6 text-sm leading-relaxed text-zinc-500 sm:mb-8 sm:text-base">
+                  {project.summary}
+                </p>
+                <div class="mt-auto flex flex-col gap-4 border-t border-neutral-800 pt-6 sm:flex-row sm:items-center sm:justify-between sm:pt-8">
+                  <div class="flex flex-wrap gap-2">
+                    {project.tags.map((tag, idx) => (
+                      <span class="mono text-[10px] text-zinc-600">{tag}</span>
+                    ))}
+                  </div>
+
+                  {project.url ? (
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-xs font-bold tracking-widest uppercase transition-colors hover:text-teal-400 sm:shrink-0"
+                      @click.stop
+                    >
+                      {copy.projects.learnMore}
+                    </a>
+                  ) : (
+                    <span
+                      class="cursor-not-allowed text-xs font-bold tracking-widest uppercase text-zinc-700 opacity-60 sm:shrink-0"
+                      @click.stop
+                    >
+                      {copy.projects.learnMore}
+                    </span>
+                  )}
+                </div>
+              </article>
+            </div>
+          ))
+        }
+      </div>
+      <div class="swiper-pagination !static mt-8 sm:mt-12"></div>
+    </div>
+  </Container>
+
+  <ProjectModal />
+</section>

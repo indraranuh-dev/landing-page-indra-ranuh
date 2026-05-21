@@ -1,0 +1,215 @@
+@import 'tailwindcss';
+@import 'highlight.js/styles/github-dark.min.css';
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
+@source "../**/*.{astro,html,js,ts}";
+
+@theme {
+  --color-bg: #000000;
+  --color-accent: #2dd4bf;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --site-nav-height: 3.5rem;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+    scroll-padding-top: var(--site-nav-height);
+  }
+
+  body {
+    @apply overflow-x-hidden bg-black font-sans text-zinc-200 antialiased;
+  }
+
+  *,
+  *::before,
+  *::after {
+    border-radius: 0 !important;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@layer components {
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  .blueprint-shell {
+    background-color: #000000;
+    background-image: linear-gradient(
+        to right,
+        rgb(38 38 38 / 0.4) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgb(38 38 38 / 0.4) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .blueprint-border {
+    @apply border border-neutral-800/80;
+  }
+
+  .section-label {
+    @apply mb-3 block font-mono text-[10px] tracking-[0.35em] text-neutral-600 uppercase;
+  }
+
+  .blueprint-grid-gap {
+    @apply gap-4 lg:gap-8;
+  }
+
+  .blueprint-cell {
+    @apply bg-black;
+  }
+
+  .glow-accent {
+    @apply pointer-events-none absolute blur-3xl;
+  }
+
+  .glow-cyan {
+    @apply bg-cyan-500/10;
+  }
+
+  .glow-violet {
+    @apply bg-violet-600/10;
+  }
+
+  .reveal-up {
+    animation: reveal-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .glass-nav {
+    @apply bg-black/85 backdrop-blur-md;
+  }
+
+  .site-nav-root {
+    @apply relative;
+  }
+
+  .site-nav-bar {
+    @apply px-4 sm:px-6;
+    padding-top: env(safe-area-inset-top, 0px);
+    min-height: var(--site-nav-height);
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --site-nav-height: 4rem;
+    }
+  }
+
+  .site-nav-overlay {
+    padding-top: calc(var(--site-nav-height) + env(safe-area-inset-top, 0px));
+    background-color: rgb(0 0 0 / 0.95);
+    backdrop-filter: blur(12px);
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-br from-white to-zinc-500 bg-clip-text text-balance text-transparent;
+  }
+
+  .project-card {
+    @apply border border-neutral-800/80 transition-[transform,border-color,background-color] duration-300 ease-out;
+  }
+
+  .card-spring {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .expertise-card {
+    @apply border border-neutral-800/80 bg-black;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .project-card:hover,
+    .card-spring:hover {
+      @apply -translate-y-1 scale-[1.01] border-teal-400/50 bg-white/[0.02];
+    }
+  }
+
+  .project-swiper {
+    @apply overflow-hidden;
+  }
+
+  @media (min-width: 768px) {
+    .project-swiper {
+      @apply !overflow-visible;
+    }
+  }
+
+  .vibe-badge {
+    @apply font-mono text-[9px] tracking-widest uppercase opacity-30;
+  }
+
+  .micro-label {
+    @apply font-mono text-[9px] tracking-widest text-neutral-600 uppercase opacity-70;
+  }
+
+  .swiper-pagination-bullet {
+    @apply !bg-zinc-800 !opacity-100;
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply !w-6 !bg-teal-400;
+  }
+
+  .modal-panel {
+    @apply max-h-[90dvh] overflow-y-auto border border-neutral-800/80 bg-black/95 backdrop-blur-xl;
+  }
+
+  .code-preview-pre {
+    @apply bg-zinc-950;
+  }
+
+  .code-preview-pre code.hljs {
+    background: transparent;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .code-preview-pre .hljs-keyword,
+  .code-preview-pre .hljs-selector-tag {
+    color: #c4b5fd;
+  }
+
+  .code-preview-pre .hljs-title,
+  .code-preview-pre .hljs-title.function_,
+  .code-preview-pre .hljs-function {
+    color: #2dd4bf;
+  }
+
+  .code-preview-pre .hljs-string,
+  .code-preview-pre .hljs-regexp {
+    color: #86efac;
+  }
+
+  .code-preview-pre .hljs-number,
+  .code-preview-pre .hljs-literal {
+    color: #fcd34d;
+  }
+
+  .code-preview-pre .hljs-comment {
+    color: #52525b;
+  }
+
+  .code-preview-pre .hljs-built_in,
+  .code-preview-pre .hljs-type {
+    color: #67e8f9;
+  }
+}

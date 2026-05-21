@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://indraranuh.dev/sitemap-index.xml

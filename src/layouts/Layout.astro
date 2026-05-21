@@ -1,23 +1,33 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+import SEOHead from '../components/seo/SEOHead.astro';
+import { seoConstants } from '../lib/seo';
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang={seoConstants.htmlLang} class="scroll-smooth">
+  <head>
+    <meta name="generator" content={Astro.generator} />
+    <SEOHead />
+  </head>
+  <body
+    class="blueprint-shell"
+    x-data
+    x-init="$store.gsap.init(); $store.gsap.initPageAnimations($el)"
+    @scroll.window="$store.ui.handleScroll()"
+    @keydown.escape.window="$store.projectModal.activeId && $store.projectModal.close()"
+  >
+    <slot />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  [x-cloak] {
+    display: none !important;
+  }
 </style>

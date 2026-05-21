@@ -1,0 +1,89 @@
+---
+import { ArrowRight, CodeIcon } from "@lucide/astro";
+import { copy } from "../../content/copy";
+import Container from "../ui/Container.astro";
+---
+
+<header
+  class="relative flex min-h-[100dvh] items-center overflow-hidden px-4 pt-[calc(var(--site-nav-height)+1.5rem)] sm:px-6 sm:pt-[calc(var(--site-nav-height)+2rem)]"
+>
+  <div
+    class="glow-accent glow-cyan top-0 right-0 h-[min(500px,80vw)] w-[min(500px,80vw)]"
+  >
+  </div>
+  <Container class="relative z-10">
+    <div class="reveal-hero reveal-up">
+      <p class="section-label">// HERO · SYSTEM_ARCHITECT</p>
+      <span
+        class="mono mb-6 block text-[10px] tracking-[0.25em] text-teal-400 uppercase sm:text-xs sm:tracking-[0.4em]"
+      >
+        {copy.hero.eyebrow}
+      </span>
+      <h1
+        class="text-gradient mb-8 text-4xl font-extrabold tracking-tight sm:mb-10 sm:text-6xl md:text-8xl"
+      >
+        {copy.hero.titleLine1}
+        <br />
+        {copy.hero.titleLine2}
+      </h1>
+      <p
+        class="mb-10 max-w-2xl text-base leading-relaxed text-zinc-400 sm:mb-12 sm:text-lg md:text-xl"
+      >
+        {copy.hero.description}
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <a
+          href="#code"
+          class="card-spring group flex w-full items-center justify-center gap-3 bg-zinc-100 px-6 py-3.5 text-sm font-bold text-zinc-950 transition-all hover:bg-teal-400 sm:w-auto sm:px-8 sm:py-4 sm:text-base"
+        >
+          {copy.hero.cta}
+          <ArrowRight
+            class="h-4 w-4 transition-transform group-hover:translate-x-1"
+          />
+        </a>
+        <a
+          href="https://github.com/indraranuh-dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border border-zinc-800 p-3 transition-colors hover:border-teal-400"
+          aria-label={copy.hero.githubLabel}
+        >
+          <CodeIcon class="h-5 w-5" />
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="reveal-stats reveal-up mt-20 grid grid-cols-2 gap-px border border-neutral-800 bg-neutral-800 sm:mt-32 md:grid-cols-4"
+      style="animation-delay: 0.15s"
+    >
+      <div class="blueprint-cell p-6 sm:p-8">
+        <div class="mb-2 text-3xl font-bold sm:text-4xl">70+</div>
+        <div class="mono text-[10px] tracking-widest text-zinc-500 uppercase">
+          {copy.hero.stats.ecosystems}
+        </div>
+      </div>
+      <div class="blueprint-cell p-6 sm:p-8">
+        <div class="mb-2 text-3xl font-bold text-teal-400 sm:text-4xl">
+          SNAP
+        </div>
+        <div class="mono text-[10px] tracking-widest text-zinc-500 uppercase">
+          {copy.hero.stats.snap}
+        </div>
+      </div>
+      <div class="blueprint-cell p-6 sm:p-8">
+        <div class="mb-2 text-3xl font-bold sm:text-4xl">Senior</div>
+        <div class="mono text-[10px] tracking-widest text-zinc-500 uppercase">
+          {copy.hero.stats.engineer}
+        </div>
+      </div>
+      <div class="blueprint-cell p-6 sm:p-8">
+        <div class="mb-2 text-3xl font-bold sm:text-4xl">Manager</div>
+        <div class="mono text-[10px] tracking-widest text-zinc-500 uppercase">
+          {copy.hero.stats.lead}
+        </div>
+      </div>
+    </div>
+  </Container>
+</header>

@@ -1,0 +1,9 @@
+/* TEAM */
+Developer: Indra Ranuh
+Site: https://indraranuh.dev
+Location: Surakarta, Indonesia
+
+/* SITE */
+Language: English, Indonesian
+Standards: HTML5, CSS3, Schema.org JSON-LD
+Software: Astro, Tailwind CSS, Alpine.js
