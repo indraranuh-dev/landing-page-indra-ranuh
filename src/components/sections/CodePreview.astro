@@ -1,12 +1,12 @@
 ---
-import { copy } from '../../content/copy';
-import Container from '../ui/Container.astro';
-import CodeEditor from '../ui/CodeEditor.astro';
+import { copy } from "../../content/copy";
+import Container from "../ui/Container.astro";
+import CodeEditor from "../ui/CodeEditor.astro";
 ---
 
 <section
   id="code"
-  class="blueprint-shell border-t border-zinc-900 py-16 sm:py-24"
+  class="blueprint-shell border-t border-zinc-900 px-4 py-20 sm:px-6 sm:py-32"
   x-data
   x-init="
     const observer = new IntersectionObserver(
@@ -21,14 +21,24 @@ import CodeEditor from '../ui/CodeEditor.astro';
     observer.observe($el);
   "
 >
-  <Container>
-    <div class="mb-8 flex flex-col gap-4 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
+  <Container class="min-w-0">
+    <div
+      class="mb-8 flex flex-col gap-4 sm:mb-12 sm:flex-row sm:items-end sm:justify-between"
+    >
       <div>
         <p class="section-label">{copy.codePreview.sectionLabel}</p>
-        <h2 class="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">{copy.codePreview.title}</h2>
-        <p class="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">{copy.codePreview.intro}</p>
+        <h2 class="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+          {copy.codePreview.title}
+        </h2>
+        <p class="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
+          {copy.codePreview.intro}
+        </p>
       </div>
-      <div class="flex flex-wrap gap-2" role="tablist" aria-label={copy.codePreview.tabListLabel}>
+      <div
+        class="flex flex-wrap gap-2"
+        role="tablist"
+        aria-label={copy.codePreview.tabListLabel}
+      >
         <template x-for="tab in $store.codePreview.snippets" :key="tab.id">
           <button
             type="button"
@@ -39,20 +49,22 @@ import CodeEditor from '../ui/CodeEditor.astro';
               : 'border-zinc-800 text-zinc-500 hover:border-zinc-600 hover:text-zinc-300'"
             :aria-selected="$store.codePreview.activeId === tab.id"
             @click="$store.codePreview.selectTab(tab.id)"
-            x-text="tab.label"
-          ></button>
+            x-text="tab.label"></button>
         </template>
       </div>
     </div>
 
-    <div class="blueprint-grid-gap grid md:grid-cols-[1fr_280px]">
-      <div class="blueprint-cell p-0">
+    <div class="blueprint-grid-gap grid min-w-0 md:grid-cols-[1fr_280px]">
+      <div class="blueprint-cell min-w-0 p-0">
         <CodeEditor>
-          <span slot="filename" x-text="$store.codePreview.active?.filename ?? 'snippet.txt'"></span>
+          <span
+            slot="filename"
+            x-text="$store.codePreview.active?.filename ?? 'snippet.txt'"
+          ></span>
           <pre
-            class="code-preview-pre max-h-[min(420px,50vh)] overflow-auto p-4 text-[11px] leading-relaxed sm:p-6 sm:text-xs"
+            class="code-preview-pre max-h-[min(420px,50vh)] touch-pan-x touch-pan-y p-4 text-[11px] leading-relaxed sm:p-6 sm:text-xs"
           ><code
-              class="hljs mono block whitespace-pre"
+              class="hljs mono block w-max min-w-full whitespace-pre"
               :class="'language-' + ($store.codePreview.active?.language ?? 'plaintext')"
               x-html="$store.codePreview.highlightedHtml"
             ></code></pre>
@@ -61,13 +73,18 @@ import CodeEditor from '../ui/CodeEditor.astro';
       <aside class="blueprint-cell flex flex-col justify-between gap-6 p-6">
         <div>
           <p class="section-label text-[9px]">{copy.codePreview.asideLabel}</p>
-          <p class="mt-3 text-sm leading-relaxed text-zinc-400">{copy.codePreview.asideBody}</p>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-400">
+            {copy.codePreview.asideBody}
+          </p>
         </div>
         <ul class="space-y-2 text-[11px] text-zinc-500">
           {
             copy.codePreview.highlights.map((item) => (
               <li class="flex items-start gap-2">
-                <span class="mt-1 h-1 w-1 shrink-0 bg-teal-400" aria-hidden="true" />
+                <span
+                  class="mt-1 h-1 w-1 shrink-0 bg-teal-400"
+                  aria-hidden="true"
+                />
                 {item}
               </li>
             ))

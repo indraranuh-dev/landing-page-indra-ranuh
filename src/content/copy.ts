@@ -140,7 +140,7 @@ export const copy: SiteCopy = {
     sectionLabel: '// PROJECTS · ENTERPRISE_INDEX',
     title: 'Enterprise Works',
     subtitle: 'Kurasi portofolio ongoing system development - klik kartu untuk case study.',
-    learnMore: 'Learn More',
+    learnMore: 'Visit →',
     visitLive: 'Visit Live',
     viewDetail: 'View Case Study',
     closeModal: 'Tutup',

@@ -172,10 +172,14 @@
   }
 
   .code-preview-pre {
-    @apply bg-zinc-950;
+    @apply max-w-full overflow-x-auto overflow-y-auto overscroll-x-contain bg-zinc-950;
+    -webkit-overflow-scrolling: touch;
   }
 
   .code-preview-pre code.hljs {
+    display: block;
+    width: max-content;
+    min-width: 100%;
     background: transparent;
     padding: 0;
     font-family: var(--font-mono);
