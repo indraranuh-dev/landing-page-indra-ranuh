@@ -6,6 +6,9 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://indraranuh.dev',
+  redirects: {
+    '/id': '/',
+  },
   integrations: [
     alpinejs({
       entrypoint: '/src/alpine/setup',
